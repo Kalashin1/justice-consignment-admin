@@ -1,7 +1,20 @@
 import { Link } from "react-router-dom";
 import { SCREENS } from "../navigation/constants";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase-config";
+import { signOut } from "firebase/auth";
 
 const Navbar = () => {
+
+  const navigate = useNavigate();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await signOut(auth);
+    navigate(SCREENS.LOGIN);
+  }
+
+
   return (
     <>
       <div className="navbar-bg"></div>
@@ -36,7 +49,7 @@ const Navbar = () => {
                 Create Shipment
               </Link>
               <div className="dropdown-divider"></div>
-              <a href="#" className="dropdown-item has-icon text-danger"> <i className="fas fa-sign-out-alt"></i>
+              <a onClick={handleLogout} href="#" className="dropdown-item has-icon text-danger"> <i className="fas fa-sign-out-alt"></i>
                 Logout
               </a>
             </div>

@@ -1,4 +1,24 @@
+import { useEffect, useState } from "react";
+import { collection, query, getDocs } from "firebase/firestore";
+import { db } from "../../../../firebase-config";
+
 const ShipmentTable = () => {
+  const [shipments, setShipments] = useState([]);
+
+  console.log("shipments", shipments);
+
+  useEffect(() => {
+    const setUp = async () => {
+      const q = query(collection(db, "shipments"));
+      const querySnapshot = await getDocs(q);
+      const shipments = querySnapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      });
+      setShipments(shipments);
+    }
+
+    setUp();
+  }, [])
   return (
     <div className="row">
       <div className="col-12">

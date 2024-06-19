@@ -1,8 +1,41 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { SCREENS } from "../../../../navigation/constants";
+import { useEffect, useRef, useState } from "react";
+import { getDoc, doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../../firebase-config";
 
 const UpdateShipmentForm = () => {
   const navigate = useNavigate();
+
+  const [shipment, setShipment] = useState();
+
+  const { id } = useParams()
+
+
+
+  useEffect(() => {
+    const setup = async () => {
+      const docRef = doc(db, "packages", id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        setShipment(docSnap.data());
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    }
+
+    setup()
+  }, [id])
+
+  const updateShipment = async (e, shipment) => {
+    e.preventDefault()
+    const ref = doc(db, "packages", id);
+    await updateDoc(ref, shipment);
+  }
+
+  const formRef = useRef(null)
   return (
     <section className="section">
       <div className="section-body">
@@ -14,7 +47,7 @@ const UpdateShipmentForm = () => {
                 <h4>Create Shipment Request</h4>
               </div>
               <div className="card-body">
-                <form>
+                <form ref={formRef} onSubmit={e => updateShipment(e, shipment)}>
                   <div className="d-flex flex-row">
                     <div className="form-group col-4">
                       <label>Sender Name</label>
