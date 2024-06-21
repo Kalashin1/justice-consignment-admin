@@ -6,7 +6,7 @@ const Sidebar = () => {
     <div className="main-sidebar sidebar-style-2">
       <aside id="sidebar-wrapper">
         <div className="sidebar-brand">
-          <a href="index.html"> <img alt="image" src="assets/img/logo.png" className="header-logo" /> <span
+          <a href="index.html"> <img alt="image" src="/assets/img/logo.png" className="header-logo" /> <span
             className="logo-name">Otika</span>
           </a>
         </div>

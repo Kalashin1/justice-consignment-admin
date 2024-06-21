@@ -1,8 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { SCREENS } from "../../../../navigation/constants";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { getDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../firebase-config";
+import { LoaderContext } from "../../../../components/layout";
 
 const UpdateShipmentForm = () => {
   const navigate = useNavigate();
@@ -11,28 +12,74 @@ const UpdateShipmentForm = () => {
 
   const { id } = useParams()
 
+  const { setIsLoading } = useContext(LoaderContext);
+
 
 
   useEffect(() => {
     const setup = async () => {
+      // setIsLoading(true)
       const docRef = doc(db, "packages", id);
       const docSnap = await getDoc(docRef);
+      // setIsLoading(false)
       if (docSnap.exists()) {
         console.log("Document data:", docSnap.data());
         setShipment(docSnap.data());
       } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such document!");
+        alert("No such document!");
+        navigate(SCREENS.SHIPMENTS, {
+          replace: true
+        })
       }
     }
 
     setup()
   }, [id])
 
-  const updateShipment = async (e, shipment) => {
-    e.preventDefault()
-    const ref = doc(db, "packages", id);
-    await updateDoc(ref, shipment);
+  const updateShipment = async (e, formRef) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const {
+        sender_name: { value: sender_name },
+        sender_email: { value: sender_email },
+        sender_phone: { value: sender_phone },
+        sender_address: { value: sender_address },
+        receiver_name: { value: receiver_name },
+        receiver_phone: { value: receiver_phone },
+        receiver_email: { value: receiver_email },
+        receiver_address: { value: receiver_address },
+        package_name: { value: package_name },
+        package_weight: { value: package_weight },
+        current_location: { value: current_location },
+        package_description: { value: package_description },
+        status: { value: status }
+      } = formRef.current;
+
+      const ref = doc(db, "packages", id);
+
+      await updateDoc(ref, {
+        sender_name,
+        sender_email,
+        sender_phone,
+        sender_address,
+        receiver_name,
+        receiver_email,
+        receiver_phone,
+        receiver_address,
+        package_name,
+        package_description,
+        current_location,
+        package_weight,
+        status,
+      });
+      setIsLoading(false);
+      navigate(SCREENS.SHIPMENTS);
+    } catch (error) {
+      setIsLoading(false)
+      alert('error updating document')
+    }
   }
 
   const formRef = useRef(null)
@@ -44,78 +91,85 @@ const UpdateShipmentForm = () => {
 
             <div className="card">
               <div className="card-header">
-                <h4>Create Shipment Request</h4>
+                <h4>Update Shipment Request {shipment?.trackingNumber}</h4>
               </div>
               <div className="card-body">
-                <form ref={formRef} onSubmit={e => updateShipment(e, shipment)}>
+                <form ref={formRef} onSubmit={e => updateShipment(e, formRef)}>
                   <div className="d-flex flex-row">
-                    <div className="form-group col-4">
+                    <div className="form-group col-3 sm-col-12">
                       <label>Sender Name</label>
-                      <input type="text" className="form-control" />
+                      <input defaultValue={shipment?.sender_name} name="sender_name" type="text" className="form-control" />
                     </div>
-                    <div className="form-group col-4">
+                    <div className="form-group col-3 sm-col-12">
                       <label>Sender Phone</label>
-                      <input type="text" className="form-control" />
+                      <input name="sender_phone" defaultValue={shipment?.sender_phone} type="text" className="form-control" />
                     </div>
-                    <div className="form-group col-4">
+                    <div className="form-group col-3 sm-col-12">
                       <label>Sender Email</label>
-                      <input type="text" className="form-control" />
+                      <input name="sender_email" defaultValue={shipment?.sender_email} type="text" className="form-control" />
+                    </div>
+                    <div className="form-group col-3 sm-col-12">
+                      <label>Sender Address</label>
+                      <input name="sender_address" defaultValue={shipment?.sender_address} type="text" className="form-control" />
                     </div>
                   </div>
                   <div className="d-flex flex-row">
-                    <div className="form-group col-4">
+                    <div className="form-group col-3 sm-col-12">
                       <label>Receiver Name</label>
-                      <input type="text" className="form-control" />
+                      <input name="receiver_name" defaultValue={shipment?.receiver_name} type="text" className="form-control" />
                     </div>
-                    <div className="form-group col-4">
+                    <div className="form-group col-3 sm-col-12">
                       <label>Reciever Phone</label>
-                      <input type="text" className="form-control" />
+                      <input name="receiver_phone" defaultValue={shipment?.receiver_phone} type="text" className="form-control" />
                     </div>
-                    <div className="form-group col-4">
+                    <div className="form-group col-3 sm-col-12">
                       <label>Receiver Email</label>
-                      <input type="text" className="form-control" />
+                      <input name="receiver_email" defaultValue={shipment?.receiver_email} type="text" className="form-control" />
+                    </div>
+                    <div className="form-group col-3 sm-col-12">
+                      <label>Receiver Address</label>
+                      <input name="receiver_address" defaultValue={shipment?.receiver_address} type="text" className="form-control" />
                     </div>
                   </div>
                   <div className="d-flex flex-row">
-                    <div className="form-group col-6">
+                    <div className="form-group col-6 sm-col-12">
                       <label>Package Name</label>
-                      <input type="text" className="form-control" />
+                      <input name="package_name" defaultValue={shipment?.package_name} type="text" className="form-control" />
                     </div>
-                    <div className="form-group col-6">
+                    <div className="form-group col-6 sm-col-12">
                       <label>Package Weight</label>
-                      <input type="text" className="form-control" />
+                      <input name="package_weight" defaultValue={shipment?.package_weight} type="text" className="form-control" />
                     </div>
 
                   </div>
 
                   <div className="d-flex flex-row">
-                    <div className="form-group col-6">
+                    <div className="form-group col-6 sm-col-12">
+                      <label>Current Location</label>
+                      <input defaultValue={shipment?.current_location} name="current_location" type="text" className="form-control" />
+                    </div>
+                  </div>
+
+                  <div className="d-flex flex-row">
+                    <div className="form-group col-6 sm-col-12">
                       <label>package Description</label>
-                      <textarea type="text" className="form-control"></textarea>
+                      <textarea name="package_description" defaultValue={shipment?.package_description} type="text" className="form-control"></textarea>
                     </div>
 
-                    <div className="form-group col-6">
+                    <div className="form-group col-6 sm-col-12">
                       <label>Status</label>
-                      <select type="text" className="form-control">
-                        <option>Created</option>
-                        <option>Processing</option>
-                        <option>In Transit</option>
-                        <option>Customs</option>
-                        <option>Approved</option>
-                        <option>Canceled</option>
-                        <option>Available</option>
-                        <option>Delivered</option>
-                        <option>Dispensed</option>
-                        <option>Warehouse</option>
-                        <option>On Hold</option>
-                        <option>Packaged</option>
-                        <option>Pending</option>
+                      <select name="status" type="text" className="form-control">
+                        <option value="processing">Processing</option>
+                        <option value="in-transit">In Transit</option>
+                        <option value="canceled">Canceled</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="dispensed">Dispensed</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
-                    <button onClick={() => navigate(SCREENS.SHIPMENTS)} className="btn btn-success">Create Shipment Request</button>
+                    <button type="submit" className="btn btn-success">Update Shipment Request</button>
                   </div>
                 </form>
               </div>

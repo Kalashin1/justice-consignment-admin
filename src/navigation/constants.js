@@ -4,5 +4,6 @@ export const SCREENS = {
   REGISTER: '/register',
   DASHBOARD: '/dashboard',
   SHIPMENTS: '/shipments',
-  CREATE_SHIPMENT: '/create-shipment'
+  CREATE_SHIPMENT: '/create-shipment',
+  EDIT_SHIPMENT: (id) => `/edit-shipment/${id ? id : ':id'}`
 }

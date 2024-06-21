@@ -4,6 +4,7 @@ import Login from "../pages/auth";
 import { SCREENS } from './constants'
 import Shipments from "../pages/dashboard/shipments";
 import CreateShipment from "../pages/dashboard/create-shipment";
+import UpdateShipment from "../pages/dashboard/update-shipment";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     element: <CreateShipment />,
     path: SCREENS.CREATE_SHIPMENT
+  },
+  {
+    element: <UpdateShipment />,
+    path: SCREENS.EDIT_SHIPMENT()
   }
 ])
 
