@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { collection, query, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../../../firebase-config";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { SCREENS } from "../../../../navigation/constants";
 import { LoaderContext } from "../../../../components/layout";
 
@@ -66,8 +66,8 @@ const ShipmentTable = () => {
                       <label htmlFor="checkbox-all" className="custom-control-label">&nbsp;</label>
                     </div>
                   </th>
-                  <th>Package Name</th>
-                  <th>Package Weight</th>
+                  <th>Name</th>
+                  <th>Weight</th>
                   <th>Status</th>
                   <th>Sender Name</th>
                   <th>Sender Phone</th>
@@ -84,7 +84,11 @@ const ShipmentTable = () => {
                         <label htmlFor="checkbox-1" className="custom-control-label">&nbsp;</label>
                       </div>
                     </td>
-                    <td>{shipment.package_name ?? 'Royal Gold'}</td>
+                    <td>
+                      <Link to={SCREENS.INVOICE(shipment.id)}>
+                        {shipment.package_name ?? 'Royal Gold'}
+                      </Link>
+                    </td>
                     <td>{shipment.package_weight ?? '32kg'}</td>
                     <td className="align-middle">
                       <div className="badge">

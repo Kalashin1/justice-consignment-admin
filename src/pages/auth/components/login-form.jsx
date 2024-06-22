@@ -37,9 +37,9 @@ const LoginForm = () => {
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input id="email" required type="email" className="form-control" name="email" tabIndex={1} autoFocus />
-          {_error.length && (<small className="text-danger">
+          {_error.length > 1 ? (<small className="text-danger">
             Incorrect email
-          </small >)}
+          </small >) : (<></>)}
         </div>
         <div className="form-group">
           <div className="d-block">
@@ -51,9 +51,9 @@ const LoginForm = () => {
             </div>
           </div>
           <input id="password" type="password" className="form-control" name="password" tabIndex={2} required />
-          {_error.length && (<small className="text-danger">
+          {_error.length > 1 ? (<small className="text-danger">
             Incorrect password
-          </small >)}
+          </small >) : (<></>)}
         </div>
         <div className="form-group">
           <div className="custom-control custom-checkbox">

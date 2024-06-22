@@ -5,6 +5,7 @@ import { SCREENS } from './constants'
 import Shipments from "../pages/dashboard/shipments";
 import CreateShipment from "../pages/dashboard/create-shipment";
 import UpdateShipment from "../pages/dashboard/update-shipment";
+import Invoice from "../pages/dashboard/shipments/invoice";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
   {
     element: <UpdateShipment />,
     path: SCREENS.EDIT_SHIPMENT()
-  }
+  },
+  {
+    element: <Invoice />,
+    path: SCREENS.INVOICE()
+  },
 ])
 
 export default router;

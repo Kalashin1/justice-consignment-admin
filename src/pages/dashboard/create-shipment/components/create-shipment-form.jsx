@@ -46,7 +46,8 @@ const CreateShipmentForm = () => {
         package_weight,
         status,
         current_location,
-        trackingNumber: Math.floor(Math.random() * 1000000000)
+        trackingNumber: Math.floor(Math.random() * 1000000000),
+        created_at: new Date().getTime()
       });
       setIsLoading(false)
       navigate(SCREENS.SHIPMENTS)
