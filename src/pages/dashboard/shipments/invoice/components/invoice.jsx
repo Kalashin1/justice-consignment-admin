@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc } from 'firebase/firestore';
 import { SCREENS } from "../../../../../navigation/constants";
 import { db } from "../../../../../firebase-config";
+import { usePDF } from 'react-to-pdf';
 
 const ShipmentInvoice = () => {
   const [shipment, setShipment] = useState();
@@ -12,10 +13,11 @@ const ShipmentInvoice = () => {
 
   const navigate = useNavigate();
 
-
+  const { toPDF, targetRef } = usePDF({ filename: 'page.pdf', page: { format: 'A5' } });
 
   useEffect(() => {
     const setup = async () => {
+      3
       // setIsLoading(true)
       const docRef = doc(db, "packages", id);
       const docSnap = await getDoc(docRef);
@@ -32,19 +34,26 @@ const ShipmentInvoice = () => {
     }
 
     setup()
-  }, [id])
+  }, [id]);
 
   return (
     <section className="section">
       <div className="section-body">
-        <div className="invoice">
+        <button onClick={() => {
+          toPDF()
+        }} className="my-4 btn btn-warning btn-icon icon-left"><i className="fas fa-download"></i> Download</button>
+        <div className="invoice" ref={targetRef}>
           <div className="invoice-print">
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-12">
                 <div className="invoice-title">
                   <h2>Invoice</h2>
                   <div className="invoice-number">Order #{shipment?.trackingNumber}</div>
-                  <button onClick={() => window.print()} className="btn btn-warning btn-icon icon-left"><i className="fas fa-print"></i> Print</button>
+                </div>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}>
                 </div>
                 <hr />
                 <div className="row d-flex justify-between" style={{ alignItems: 'center' }}>
