@@ -5,6 +5,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { SCREENS } from "../../../../../navigation/constants";
 import { db } from "../../../../../firebase-config";
 import { usePDF } from 'react-to-pdf';
+import { QRCodeSVG } from 'qrcode.react';
 
 const ShipmentInvoice = () => {
   const [shipment, setShipment] = useState();
@@ -76,7 +77,7 @@ const ShipmentInvoice = () => {
                 <div className="row">
                   <div className="col-md-6">
                     <address>
-                      <strong>Payment Method:</strong><br />
+                      <strong className="mb-2">Payment Method:</strong><br />
                       <img src="/assets/img/cards/visa.png" className="mr-1" alt="visa" />
                       <img src="/assets/img/cards/jcb.png" className="mr-1" alt="jcb" />
                       <img src="/assets/img/cards/mastercard.png" className="mr-1" alt="mastercard" />
@@ -86,8 +87,11 @@ const ShipmentInvoice = () => {
                   <div className="col-md-6 text-md-right">
                     <address>
                       <strong>Order Date:</strong><br />
-                      {shipment?.created_at ? new Date(shipment?.createdAt).toDateString() : new Date().toDateString()}<br /><br />
+                      {shipment?.created_at ? new Date(shipment?.created_at).toDateString() : new Date().toDateString()}<br /><br />
                     </address>
+                  </div>
+                  <div className="p-4">
+                    <QRCodeSVG value={`https://www.servicecargo.org?tracking=${shipment?.trackingNumber}`} />
                   </div>
                 </div>
               </div>
