@@ -5,7 +5,8 @@ import { doc, getDoc } from 'firebase/firestore';
 import { SCREENS } from "../../../../../navigation/constants";
 import { db } from "../../../../../firebase-config";
 import { usePDF } from 'react-to-pdf';
-import { QRCodeSVG } from 'qrcode.react';
+// import { QRCodeSVG } from 'qrcode.react';
+import { useReactToPrint } from 'react-to-print';
 
 const ShipmentInvoice = () => {
   const [shipment, setShipment] = useState();
@@ -14,7 +15,15 @@ const ShipmentInvoice = () => {
 
   const navigate = useNavigate();
 
-  const { toPDF, targetRef } = usePDF({ filename: 'page.pdf', page: { format: 'A5' } });
+  const {
+    // toPDF, 
+    targetRef
+  } = usePDF({ filename: 'page.pdf', page: { format: 'A5' } });
+
+
+  const handlePrint = useReactToPrint({
+    content: () => targetRef.current,
+  });
 
   useEffect(() => {
     const setup = async () => {
@@ -41,29 +50,26 @@ const ShipmentInvoice = () => {
     <section className="section">
       <div className="section-body">
         <button onClick={() => {
-          toPDF()
+          // toPDF()
+          handlePrint()
         }} className="my-4 btn btn-warning btn-icon icon-left"><i className="fas fa-download"></i> Download</button>
         <div className="invoice" ref={targetRef}>
           <div className="invoice-print">
             <div className="row">
               <div className="col-12">
                 <div className="invoice-title">
-                  <h2>Invoice</h2>
-                  <div className="invoice-number">Order #{shipment?.trackingNumber}</div>
-                </div>
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                }}>
+                  <h2>Invoice </h2>
+                  <div className="invoice-number">Order #{shipment?.trackingNumber}  <address className="text-sm">
+                    {shipment?.created_at ? new Date(shipment?.created_at).toDateString() : new Date().toDateString()}<br /><br />
+                  </address></div>
                 </div>
                 <hr />
-                <div className="row d-flex justify-between" style={{ alignItems: 'center' }}>
+                <div className="row d-flex justify-between align-items-center">
                   <div className="col-md-6">
                     <address>
                       <strong>Billed To:</strong><br />
                       {shipment?.sender_name}<br />
                       {shipment?.sender_address}<br />
-
                     </address>
                   </div>
                   <div className="col-md-6 text-md-right">
@@ -74,26 +80,15 @@ const ShipmentInvoice = () => {
                     </address>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <address>
-                      <strong className="mb-2">Payment Method:</strong><br />
-                      <img src="/assets/img/cards/visa.png" className="mr-1" alt="visa" />
-                      <img src="/assets/img/cards/jcb.png" className="mr-1" alt="jcb" />
-                      <img src="/assets/img/cards/mastercard.png" className="mr-1" alt="mastercard" />
-                      <img src="/assets/img/cards/paypal.png" className="mr-1" alt="paypal" />
-                    </address>
-                  </div>
+                {/* <div className="row">
+
                   <div className="col-md-6 text-md-right">
-                    <address>
-                      <strong>Order Date:</strong><br />
-                      {shipment?.created_at ? new Date(shipment?.created_at).toDateString() : new Date().toDateString()}<br /><br />
-                    </address>
+
                   </div>
                   <div className="p-4">
                     <QRCodeSVG value={`https://www.servicecargo.org?tracking=${shipment?.trackingNumber}`} />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="row mt-4">
@@ -105,14 +100,14 @@ const ShipmentInvoice = () => {
                     <tr>
                       <th data-width="40">#</th>
                       <th>Item</th>
-                      <th className="text-center">Weight</th>
-                      <th className="text-center">Description</th>
+                      <th>Weight</th>
+                      <th>Description</th>
                     </tr>
                     <tr>
                       <td>1</td>
                       <td>{shipment?.package_name}</td>
                       <td>{shipment?.package_weight}</td>
-                      <td className="text-center">{shipment?.description}</td>
+                      <td>{shipment?.package_description}</td>
 
                     </tr>
 

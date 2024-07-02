@@ -3,6 +3,8 @@ import { SCREENS } from "../navigation/constants";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase-config";
 import { signOut } from "firebase/auth";
+import { useContext } from "react";
+import { SidebarControlContext } from "./layout";
 
 const Navbar = () => {
 
@@ -14,6 +16,7 @@ const Navbar = () => {
     navigate(SCREENS.LOGIN);
   }
 
+  const { toggleSidebar, setToggleSidebar } = useContext(SidebarControlContext)
 
   return (
     <>
@@ -21,8 +24,12 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg main-navbar sticky">
         <div className="form-inline mr-auto">
           <ul className="navbar-nav mr-3">
-            <li><a href="#" data-toggle="sidebar" className="nav-link nav-link-lg
-									collapse-btn"> <i className="fas fa-bars" style={{ color: 'black' }}></i></a></li>
+            <li><button style={{ cursor: 'pointer' }} data-toggle="sidebar" className="nav-link nav-link-lg
+									collapse-btn"> <i className="fas fa-bars" style={{ color: 'black' }} onClick={() => {
+                setToggleSidebar(!toggleSidebar)
+
+
+              }}></i></button></li>
 
             <li>
               <form className="form-inline mr-auto">
