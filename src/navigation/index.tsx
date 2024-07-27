@@ -3,14 +3,10 @@ import Home from "../pages/dashboard/home";
 import Login from "../pages/auth/login";
 import { SCREENS } from "./constant";
 import Register from "../pages/auth/register";
-import CreateInvestment from "../pages/dashboard/investment/create";
-import Investments from "../pages/dashboard/investment";
-import Transactions from "../pages/dashboard/transaction";
-import Withdrawal from "../pages/dashboard/withdrawal";
-import ProfilePage from "../pages/dashboard/profile";
-import Plans from "../pages/dashboard/plans";
-import CreatePlan from "../pages/dashboard/plans/create";
-import Users from "../pages/dashboard/users";
+import Shipments from "../pages/dashboard/shipment";
+import CreateShipment from "../pages/dashboard/shipment/create";
+import EditShipment from "../pages/dashboard/shipment/edit";
+import Invoice from "../pages/dashboard/invoice";
 
 const router = createBrowserRouter([
   {
@@ -30,36 +26,20 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: SCREENS.CREATE_INVESTMENT,
-    element: <CreateInvestment />,
+    path: SCREENS.SHIPMENTS,
+    element: <Shipments />,
   },
   {
-    path: SCREENS.INVESTMENTS,
-    element: <Investments />,
+    path: SCREENS.CREATE_SHIPMENT,
+    element: <CreateShipment />,
   },
   {
-    path: SCREENS.TRANSACTIONS,
-    element: <Transactions />,
+    path: SCREENS.EDIT_SHIPMENT(),
+    element: <EditShipment />,
   },
   {
-    path: SCREENS.WITHDRAWAL,
-    element: <Withdrawal />,
-  },
-  {
-    path: SCREENS.PROFILE,
-    element: <ProfilePage />,
-  },
-  {
-    path: SCREENS.PLANS,
-    element: <Plans />,
-  },
-  {
-    path: SCREENS.CREATE_PLAN,
-    element: <CreatePlan />,
-  },
-  {
-    path: SCREENS.USERS_TABLE,
-    element: <Users />,
+    path: SCREENS.INVOICE(),
+    element: <Invoice />,
   },
 ]);
 

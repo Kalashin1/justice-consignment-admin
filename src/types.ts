@@ -1,63 +1,22 @@
 import { DocumentData } from "firebase/firestore";
 
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  bank: {
-    bankName: string;
-    iban: string;
-    accountNumber: string;
-    swiftCode: string;
-  };
-  btcAddress: string;
-  currentInvestments: Investment[];
-  createdAt: string;
-  isAdmin: boolean;
-  birthday: number;
-} & DocumentData;
-
-export type Plan = {
-  id: string;
-  title: string;
-  ROI: string;
-  description: string;
-  price: string;
-  duration: number;
-  createdAt: string;
-} & DocumentData;
-
-export type Transaction = {
-  type: "WITHDRAWAL" | "INVESTMENT";
-  id: string;
-  createdAt: string;
-  amount: number;
-  status: "PENDING" | "COMPLETED" | "FAILED";
-  user: Pick<User, "id" | "name" | "email">;
-  method?: {
-    value: string;
-    label: string | "BTC";
-  };
-} & DocumentData;
-
-export type Investment = {
-  id: string;
-  user: Pick<User, "name" | "id" | "phone">;
-  createAt: string;
-  plan: Pick<Plan, "id" | "title" | "id" | "ROI" | "duration">;
-  withdrawalDate: string;
-  earnings: number;
-  capital: number;
-  status:
-    | "CREATED"
-    | "PROCESSING"
-    | "PAUSED"
-    | "ACCEPTED"
-    | "REJECTED"
-    | "CANCELED";
-} & DocumentData;
+export interface Shipment extends DocumentData {
+  sender_name: string;
+  sender_email: string;
+  sender_phone: string;
+  sender_address: string;
+  receiver_name: string;
+  receiver_phone: string;
+  receiver_email: string;
+  receiver_address: string;
+  current_location: string;
+  package_name: string;
+  package_weight: string;
+  package_description: string;
+  status: string;
+  created_at: number;
+  trackingNumber: number;
+}
 
 export function addDaysToDate(date: Date, daysToAdd: number): Date {
   const newDate = new Date(date.getTime()); // Create a copy to avoid modifying original

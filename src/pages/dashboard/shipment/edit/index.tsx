@@ -1,14 +1,14 @@
 import Layout from "../../components/layout";
-import CreateInvestmentForm from "./components/create-investment-form";
+import EditShipmentForm from "./components/edit-shipment-form";
 
-const CreateInvestment = () => {
+const EditShipment = () => {
   return (
     <Layout>
       <section className="px-8 py-4 bg-gray-100 min-h-screen flex items-center justify-center">
-        <CreateInvestmentForm />
+        <EditShipmentForm />
       </section>
     </Layout>
   );
 };
 
-export default CreateInvestment;
+export default EditShipment;

@@ -1,13 +1,9 @@
-export enum SCREENS {
-  LOGIN = "/login",
-  REGISTER = "/register",
-  DASHBOARD = "/dashboard",
-  CREATE_INVESTMENT = "/create-investment",
-  INVESTMENTS = "/investments",
-  TRANSACTIONS = "/transactions",
-  WITHDRAWAL = "/withdrawal",
-  PROFILE = "/profile",
-  PLANS = "/plans",
-  CREATE_PLAN = "/create-plan",
-  USERS_TABLE = "/users",
-}
+export const SCREENS = {
+  LOGIN: "/login",
+  REGISTER: "/register",
+  DASHBOARD: "/dashboard",
+  CREATE_SHIPMENT: "/creat-shipment",
+  SHIPMENTS: "/shipments",
+  EDIT_SHIPMENT: (id?: string) => `/shipment/${id ? id : ":id"}`,
+  INVOICE: (id?: string) => `/invoice/${id ? id : ":id"}`,
+};

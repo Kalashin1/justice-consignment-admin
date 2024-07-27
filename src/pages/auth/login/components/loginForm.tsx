@@ -2,11 +2,9 @@ import { FormEvent, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { SCREENS } from "../../../../navigation/constant";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../../../firebase-setting";
-import { doc, getDoc } from "firebase/firestore";
-
+import { auth } from "../../../../firebase-setting";
 const LoginForm = () => {
-  const naivgate = useNavigate();
+  const navigate = useNavigate();
 
   const formRef = useRef<HTMLFormElement | null>(null);
 
@@ -17,19 +15,12 @@ const LoginForm = () => {
       password: { value: password },
     } = formRef.current!;
     try {
-      const { user } = await signInWithEmailAndPassword(
+      await signInWithEmailAndPassword(
         auth,
         email.toLowerCase().trim(),
         password
       );
-      localStorage.setItem("user_id", user.uid);
-      const docRef = await getDoc(doc(db, "users", user.uid));
-      if (docRef.exists()) {
-        naivgate(SCREENS.DASHBOARD);
-      } else {
-        alert("Your account has been deactivated please contact the admin");
-        return;
-      }
+      navigate(SCREENS.DASHBOARD);
     } catch (error) {
       alert("error logging in");
       // handle error later
