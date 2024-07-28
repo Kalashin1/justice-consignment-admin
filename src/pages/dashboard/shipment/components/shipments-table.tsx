@@ -46,7 +46,7 @@ const ShipmentTable: FC<{
             <TableHead>Sender Name</TableHead>
             <TableHead>Sender Phone</TableHead>
             <TableHead>Receiver Name</TableHead>
-            <TableHead>Receiver Phone</TableHead>
+            <TableHead>Tracking Number</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -67,7 +67,7 @@ const ShipmentTable: FC<{
                 <TableCell>{shipment.sender_name ?? "John Doe"}</TableCell>
                 <TableCell>{shipment.sender_phone ?? "0123456789"}</TableCell>
                 <TableCell>{shipment.receiver_name ?? "John Doe"}</TableCell>
-                <TableCell>{shipment.receiver_phone ?? "0123456789"}</TableCell>
+                <TableCell>{shipment.trackingNumber}</TableCell>
 
                 <TableCell>
                   <div className="flex justify-between items-center">
