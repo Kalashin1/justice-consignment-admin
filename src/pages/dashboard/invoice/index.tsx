@@ -60,7 +60,7 @@ const Invoice = () => {
             <tbody>
               <tr>
                 <td className="w-full align-top">
-                  <div className="text-xl font-bold">UPS Logistics</div>
+                  <div className="text-xl font-bold">Servicargo</div>
                   <button
                     onClick={handlePrint}
                     className="px-12 py-1.5 my-2 rounded-md shadow-md bg-purple-600"
