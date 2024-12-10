@@ -203,8 +203,8 @@ const EditShipmentForm = () => {
                 label: "Arrived",
               },
               {
-                value: "pickup",
-                label: "Pickup",
+                value: "kept",
+                label: "Kept",
               },
             ]}
             onChange={(v) => setStatus(v?.value as string)}
