@@ -71,76 +71,88 @@ const CreateShipmentForm = () => {
               </div>
               <div className="card-body">
                 <form ref={formRef} onSubmit={e => handleSubmit(e, formRef)}>
-                  <div className="d-flex flex-row">
-                    <div className="form-group col-3 sm-col-12">
-                      <label>Sender Name</label>
-                      <input name="sender_name" type="text" className="form-control" />
-                    </div>
-                    <div className="form-group col-3 sm-col-12">
-                      <label>Sender Phone</label>
-                      <input name="sender_phone" type="text" className="form-control" />
-                    </div>
-                    <div className="form-group col-3 sm-col-12">
-                      <label>Sender Email</label>
-                      <input name="sender_email" type="text" className="form-control" />
-                    </div>
-                    <div className="form-group col-3 sm-col-12">
-                      <label>Sender Address</label>
-                      <input name="sender_address" type="text" className="form-control" />
-                    </div>
-                  </div>
-                  <div className="d-flex flex-row">
-                    <div className="form-group col-3 sm-col-12">
-                      <label>Receiver Name</label>
-                      <input name="receiver_name" type="text" className="form-control" />
-                    </div>
-                    <div className="form-group col-3 sm-col-12">
-                      <label>Reciever Phone</label>
-                      <input name="receiver_phone" type="text" className="form-control" />
-                    </div>
-                    <div className="form-group col-3 sm-col-12">
-                      <label>Receiver Email</label>
-                      <input name="receiver_email" type="text" className="form-control" />
-                    </div>
-                    <div className="form-group col-3 sm-col-12">
-                      <label>Receiver Address</label>
-                      <input name="receiver_address" type="text" className="form-control" />
-                    </div>
-                  </div>
-                  <div className="d-flex flex-row">
-                    <div className="form-group col-6 sm-col-12">
-                      <label>Package Name</label>
-                      <input name="package_name" type="text" className="form-control" />
-                    </div>
-                    <div className="form-group col-6 sm-col-12">
-                      <label>Package Weight</label>
-                      <input name="package_weight" type="text" className="form-control" />
-                    </div>
-
+                  {/* Package Description full width */}
+                  <div className="form-group mb-4">
+                    <label>Package Description</label>
+                    <textarea name="package_description" type="text" className="form-control"></textarea>
                   </div>
 
-                  <div className="d-flex flex-row">
-                    <div className="form-group col-6 sm-col-12">
-                      <label>package Description</label>
-                      <textarea name="package_description" type="text" className="form-control"></textarea>
+                  <div className="row">
+                    {/* Sender Details */}
+                    <div className="col-md-6">
+                      <h5>Sender Details</h5>
+                      <div className="form-group">
+                        <label>Sender Name</label>
+                        <input name="sender_name" type="text" className="form-control" />
+                      </div>
+                      <div className="form-group">
+                        <label>Sender Phone</label>
+                        <input name="sender_phone" type="text" className="form-control" />
+                      </div>
+                      <div className="form-group">
+                        <label>Sender Email</label>
+                        <input name="sender_email" type="text" className="form-control" />
+                      </div>
+                      <div className="form-group">
+                        <label>Sender Address</label>
+                        <input name="sender_address" type="text" className="form-control" />
+                      </div>
                     </div>
-
-                    <div className="form-group col-6 sm-col-12">
-                      <label>Status</label>
-                      <select name="status" type="text" className="form-control">
-                        <option value="processing">Processing</option>
-                        <option value="in-transit">In Transit</option>
-                        <option value="canceled">Canceled</option>
-                        <option value="delivered">Delivered</option>
-                        <option value="dispensed">Dispensed</option>
-                      </select>
+                    {/* Receiver Details */}
+                    <div className="col-md-6">
+                      <h5>Receiver Details</h5>
+                      <div className="form-group">
+                        <label>Receiver Name</label>
+                        <input name="receiver_name" type="text" className="form-control" />
+                      </div>
+                      <div className="form-group">
+                        <label>Receiver Phone</label>
+                        <input name="receiver_phone" type="text" className="form-control" />
+                      </div>
+                      <div className="form-group">
+                        <label>Receiver Email</label>
+                        <input name="receiver_email" type="text" className="form-control" />
+                      </div>
+                      <div className="form-group">
+                        <label>Receiver Address</label>
+                        <input name="receiver_address" type="text" className="form-control" />
+                      </div>
                     </div>
                   </div>
 
-                  <div className="d-flex flex-row">
-                    <div className="form-group col-6 sm-col-12">
-                      <label>Current Location</label>
-                      <input name="current_location" type="text" className="form-control" />
+                  {/* Package Info and Status */}
+                  <div className="row mt-4">
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label>Package Name</label>
+                        <input name="package_name" type="text" className="form-control" />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label>Package Weight</label>
+                        <input name="package_weight" type="text" className="form-control" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label>Status</label>
+                        <select name="status" type="text" className="form-control">
+                          <option value="processing">Processing</option>
+                          <option value="in-transit">In Transit</option>
+                          <option value="canceled">Canceled</option>
+                          <option value="delivered">Delivered</option>
+                          <option value="dispensed">Dispensed</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label>Current Location</label>
+                        <input name="current_location" type="text" className="form-control" />
+                      </div>
                     </div>
                   </div>
 
