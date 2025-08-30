@@ -71,8 +71,10 @@ const ShipmentTable = () => {
                   <th>Status</th>
                   <th>Sender Name</th>
                   <th>Sender Phone</th>
+                  <th>Sender Email</th>
                   <th>Receiver Name</th>
                   <th>Receiver Phone</th>
+                  <th>Receiver Email</th>
                   <th>Action</th>
                 </tr>
                 {shipments?.map((shipment, index) => (
@@ -99,8 +101,10 @@ const ShipmentTable = () => {
                       {shipment.sender_name ?? 'John Doe'}
                     </td>
                     <td>{shipment.sender_phone ?? '0123456789'}</td>
+                    <td>{shipment.email}</td>
                     <td>{shipment.receiver_name ?? 'John Doe'}</td>
                     <td>{shipment.receiver_phone ?? '0123456789'}</td>
+                    <td>{shipment.email}</td>
                     <td className="d-flex justify-between p-2">
                       <button className="btn btn-primary mr-2" onClick={() => navigate(SCREENS.EDIT_SHIPMENT(shipment.id))}><i className="fas fa-edit" /></button>
                       <button className="btn btn-danger" onClick={() => deleteShipment(shipment.id)}><i className="fas fa-trash" /></button></td>
