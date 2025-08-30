@@ -9,16 +9,23 @@ import { usePDF } from 'react-to-pdf';
 import { useReactToPrint } from 'react-to-print';
 
 const ShipmentInvoice = () => {
+
   const [shipment, setShipment] = useState();
 
-  const { id } = useParams()
+  const { id } = useParams();
 
   const navigate = useNavigate();
 
   const {
     // toPDF, 
     targetRef
-  } = usePDF({ filename: 'page.pdf', page: { format: 'A5' } });
+  } = usePDF({ 
+    filename: 'page.pdf', 
+    page: { format: 'A5' },  
+
+  });
+
+
 
 
   const handlePrint = useReactToPrint({
