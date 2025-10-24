@@ -145,6 +145,7 @@ const CreateShipmentForm = () => {
                           <option value="canceled">Canceled</option>
                           <option value="delivered">Delivered</option>
                           <option value="dispensed">Dispensed</option>
+                          <option value="held">Held</option>
                         </select>
                       </div>
                     </div>
